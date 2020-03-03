@@ -2,35 +2,10 @@
 
 use crate::{
     grid2::*,
-    range::Range0To,
+    range::BoundRange,
 };
 use mint::Vector2;
-use std::ops::{
-    Range, 
-    RangeInclusive, 
-    RangeFull
-};
-
-/// A range which is not unbounded on either end.
-pub trait BoundRange {
-    fn lower_inclusive(&self) -> i32;
-    fn upper_exclusive(&self) -> i32;
-}
-
-impl BoundRange for Range<i32> {
-    fn lower_inclusive(&self) -> i32 { self.start }
-    fn upper_exclusive(&self) -> i32 { self.end }
-}
-
-impl BoundRange for RangeInclusive<i32> {
-    fn lower_inclusive(&self) -> i32 { *self.start() }
-    fn upper_exclusive(&self) -> i32 { *self.end() - 1 }
-}
-
-impl BoundRange for Range0To {
-    fn lower_inclusive(&self) -> i32 { 0 }
-    fn upper_exclusive(&self) -> i32 { self.end }
-}
+use std::ops::RangeFull;
 
 
 pub struct Grid2Wrapping<G> 

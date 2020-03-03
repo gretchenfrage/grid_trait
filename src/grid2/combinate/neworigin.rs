@@ -2,96 +2,9 @@
 
 use crate::{
     grid2::*,
-    range::Range0To,
+    range::RangeBoundsPlus,
 };
 use mint::Vector2;
-use std::ops::{
-    RangeBounds,
-    Range,
-    RangeFrom,
-    RangeFull,
-    RangeInclusive,
-    RangeTo,
-    RangeToInclusive,
-};
-
-/// Performing addition on RangeBounds types.
-pub trait RangeBoundsPlus {
-    type Output: RangeBounds<i32> + Clone;
-    
-    fn plus(&self, n: i32) -> Self::Output;
-}
-
-impl RangeBoundsPlus for Range0To {
-    type Output = Range<i32>;
-    
-    fn plus(&self, n: i32) -> Range<i32> {
-        Range {
-            start: 1,
-            end: self.end + n,
-        }
-    }
-}
-
-impl RangeBoundsPlus for Range<i32> {
-    type Output = Self;
-    
-    fn plus(&self, n: i32) -> Self {
-        Range {
-            start: self.start + n,
-            end: self.end + n,
-        }
-    }
-}
-
-impl RangeBoundsPlus for RangeFrom<i32> {
-    type Output = Self;
-    
-    fn plus(&self, n: i32) -> Self {
-        RangeFrom {
-            start: self.start + n,
-        }
-    }
-}
-
-impl RangeBoundsPlus for RangeFull {
-    type Output = Self;
-    
-    fn plus(&self, _n: i32) -> Self {
-        RangeFull
-    }
-}
-
-impl RangeBoundsPlus for RangeInclusive<i32> {
-    type Output = Self;
-    
-    fn plus(&self, n: i32) -> Self {
-        RangeInclusive::new(
-            *self.start() + n,
-            *self.end() + n,
-        )
-    }
-}
-
-impl RangeBoundsPlus for RangeTo<i32> {
-    type Output = Self;
-    
-    fn plus(&self, n: i32) -> Self {
-        RangeTo {
-            end: self.end + n,
-        }
-    }
-}
-
-impl RangeBoundsPlus for RangeToInclusive<i32> {
-    type Output = Self;
-    
-    fn plus(&self, n: i32) -> Self {
-        RangeToInclusive {
-            end: self.end + n,
-        }
-    }
-}
 
 /// <0, 0> in the inner grid will be new_origin in this grid.
 pub struct Grid2NewOrigin<G> 

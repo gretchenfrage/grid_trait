@@ -2,79 +2,9 @@
 
 use crate::{
     grid2::*,
-    range::Range0To,
+    range::RangeBoundsTimes,
 };
 use mint::Vector2;
-use std::ops::{
-    Range,
-    RangeFrom,
-    RangeFull,
-    RangeInclusive,
-    RangeTo,
-    RangeToInclusive,
-};
-
-/// Performing multiplication on RangeBounds types.
-pub trait RangeBoundsTimes: Sized + Clone {
-    fn times(&self, n: i32) -> Self;
-}
-
-impl RangeBoundsTimes for Range0To {
-    fn times(&self, n: i32) -> Range0To {
-        Range0To {
-            end: self.end * n,
-        }
-    }
-}
-
-impl RangeBoundsTimes for Range<i32> {
-    fn times(&self, n: i32) -> Self {
-        Range {
-            start: self.start * n,
-            end: self.end * n,
-        }
-    }
-}
-
-impl RangeBoundsTimes for RangeFrom<i32> {
-    fn times(&self, n: i32) -> Self {
-        RangeFrom {
-            start: self.start * n,
-        }
-    }
-}
-
-impl RangeBoundsTimes for RangeFull {
-    fn times(&self, _n: i32) -> Self {
-        RangeFull
-    }
-}
-
-impl RangeBoundsTimes for RangeInclusive<i32> {
-    fn times(&self, n: i32) -> Self {
-        RangeInclusive::new(
-            *self.start() * n,
-            *self.end() * n,
-        )
-    }
-}
-
-impl RangeBoundsTimes for RangeTo<i32> {
-    fn times(&self, n: i32) -> Self {
-        RangeTo {
-            end: self.end * n,
-        }
-    }
-}
-
-impl RangeBoundsTimes for RangeToInclusive<i32> {
-    fn times(&self, n: i32) -> Self {
-        RangeToInclusive {
-            end: self.end * n,
-        }
-    }
-}
-
 
 /// Flattened Grid2 of Grid2.
 ///

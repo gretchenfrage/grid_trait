@@ -7,11 +7,11 @@ pub mod combinate;
 pub mod backends;
 
 use crate::{
-    range::Range0To,
-    grid2::combinate::{
-        flatten::RangeBoundsTimes,
-        neworigin::RangeBoundsPlus,
-        wrapping::BoundRange,
+    range::{
+        Range0To,
+        RangeBoundsTimes,
+        RangeBoundsPlus,
+        BoundRange,
     },
 };
 use mint::Vector2;
