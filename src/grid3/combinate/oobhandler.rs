@@ -1,32 +1,32 @@
 //! Out-of-bounds index handler.
 
-use crate::grid2::*;
-use mint::Vector2;
+use crate::grid3::*;
+use mint::Vector3;
 use std::{
     ops::RangeFull,
     marker::PhantomData,
 };
 
 /// All values outside of a grid are supplied by a function.
-pub struct Grid2OobHandler<G, I, F> 
+pub struct Grid3OobHandler<G, I, F>
 where
-    G: Grid2,
-    I: From<Vector2<i32>>,
-    F: Fn(I) -> <G as Grid2>::Item,
+    G: Grid3,
+    I: From<Vector3<i32>>,
+    F: Fn(I) -> <G as Grid3>::Item,
 {
     inner: G,
     func: F,
     p: PhantomData<fn(I)>,
 }
 
-impl<G, I, F> Grid2OobHandler<G, I, F>
+impl<G, I, F> Grid3OobHandler<G, I, F>
 where
-    G: Grid2,
-    I: From<Vector2<i32>>,
-    F: Fn(I) -> <G as Grid2>::Item,
+    G: Grid3,
+    I: From<Vector3<i32>>,
+    F: Fn(I) -> <G as Grid3>::Item,
 {
     pub fn new(inner: G, func: F) -> Self {
-        Grid2OobHandler {
+        Grid3OobHandler {
             inner,
             func,
             p: PhantomData,
@@ -34,29 +34,31 @@ where
     }
 }
 
-impl<G, I, F> Grid2 for Grid2OobHandler<G, I, F>
+impl<G, I, F> Grid3 for Grid3OobHandler<G, I, F>
 where
-    G: Grid2,
-    I: From<Vector2<i32>>,
-    F: Fn(I) -> <G as Grid2>::Item,
+    G: Grid3,
+    I: From<Vector3<i32>>,
+    F: Fn(I) -> <G as Grid3>::Item,
 {
-    type Item = <G as Grid2>::Item;
+    type Item = <G as Grid3>::Item;
     type XBound = RangeFull;
     type YBound = RangeFull;
+    type ZBound = RangeFull;
     
     fn x_bound(&self) -> RangeFull { RangeFull }
     fn y_bound(&self) -> RangeFull { RangeFull }
+    fn z_bound(&self) -> RangeFull { RangeFull }
 }
 
-impl<G, I, F> Grid2Get for Grid2OobHandler<G, I, F>
+impl<G, I, F> Grid3Get for Grid3OobHandler<G, I, F>
 where
-    G: Grid2 + Grid2Get,
-    I: From<Vector2<i32>>,
-    F: Fn(I) -> <G as Grid2>::Item,
+    G: Grid3 + Grid3Get,
+    I: From<Vector3<i32>>,
+    F: Fn(I) -> <G as Grid3>::Item,
 {
     fn get<C>(&self, coord: C) -> Self::Item
     where
-        C: Into<Vector2<i32>>
+        C: Into<Vector3<i32>>
     {
         let coord = coord.into();
         if self.inner.in_bounds(coord) {

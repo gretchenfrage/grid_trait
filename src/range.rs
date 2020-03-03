@@ -1,4 +1,4 @@
-/// Extensions to integer ranges.
+//! Extensions to integer ranges.
 
 use std::ops::{
     RangeBounds,

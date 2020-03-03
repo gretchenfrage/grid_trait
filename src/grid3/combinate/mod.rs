@@ -8,21 +8,22 @@ pub mod flatten;
 pub mod oobhandler;
 
 use super::*;
-use mint::Vector2;
+use mint::Vector3;
 use std::{
     ops::{Deref, DerefMut},
 };
 
 // ==== elevate pointer types ====
 
-impl<T> Grid2 for T
+impl<T> Grid3 for T
 where
     T: Deref,
-    <T as Deref>::Target: Grid2
+    <T as Deref>::Target: Grid3
 {
-    type Item = <<T as Deref>::Target as Grid2>::Item;
-    type XBound = <<T as Deref>::Target as Grid2>::XBound;
-    type YBound = <<T as Deref>::Target as Grid2>::YBound;
+    type Item = <<T as Deref>::Target as Grid3>::Item;
+    type XBound = <<T as Deref>::Target as Grid3>::XBound;
+    type YBound = <<T as Deref>::Target as Grid3>::YBound;
+    type ZBound = <<T as Deref>::Target as Grid3>::ZBound;
     
     fn x_bound(&self) -> Self::XBound {
         T::deref(self).x_bound()
@@ -31,61 +32,65 @@ where
     fn y_bound(&self) -> Self::YBound {
         T::deref(self).y_bound()
     }
+    
+    fn z_bound(&self) -> Self::ZBound {
+        T::deref(self).z_bound()
+    }
 }
 
-impl<T> Grid2Len for T
+impl<T> Grid3Len for T
 where
     T: Deref,
-    <T as Deref>::Target: Grid2Len
+    <T as Deref>::Target: Grid3Len
 {}
 
-impl<T> Grid2Get for T
+impl<T> Grid3Get for T
 where
     T: Deref,
-    <T as Deref>::Target: Grid2Get
+    <T as Deref>::Target: Grid3Get
 {
     fn get<I>(&self, coord: I) -> Self::Item
     where
-        I: Into<Vector2<i32>>
+        I: Into<Vector3<i32>>
     {
         T::deref(self).get(coord)
     }
 }
 
-impl<T> Grid2Ref for T
+impl<T> Grid3Ref for T
 where
     T: Deref,
-    <T as Deref>::Target: Grid2Ref
+    <T as Deref>::Target: Grid3Ref
 {
     fn idx<I>(&self, coord: I) -> &Self::Item
     where
-        I: Into<Vector2<i32>>
+        I: Into<Vector3<i32>>
     {
         T::deref(self).idx(coord)
     }
 }
 
-impl<T> Grid2Set for T
+impl<T> Grid3Set for T
 where
     T: Deref + DerefMut,
-    <T as Deref>::Target: Grid2Set
+    <T as Deref>::Target: Grid3Set
 {
     fn set<I>(&mut self, coord: I, elem: Self::Item)
     where
-        I: Into<Vector2<i32>>
+        I: Into<Vector3<i32>>
     {
         T::deref_mut(self).set(coord, elem)
     }
 }
 
-impl<T> Grid2Mut for T
+impl<T> Grid3Mut for T
 where
     T: Deref + DerefMut,
-    <T as Deref>::Target: Grid2Mut
+    <T as Deref>::Target: Grid3Mut
 {
     fn midx<I>(&mut self, coord: I) -> &mut Self::Item
     where
-        I: Into<Vector2<i32>>
+        I: Into<Vector3<i32>>
     {
         T::deref_mut(self).midx(coord)
     }
