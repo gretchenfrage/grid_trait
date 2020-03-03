@@ -3,6 +3,11 @@ name = "grid_trait"
 version = "0.1.0"
 authors = ["Phoenix Kahlo <kahlo.phoenix@gmail.com>"]
 edition = "2018"
+homepage = "http://phoenixkahlo.com"
+description = "2D and 3D grids with combinators."
+categories = ["data-structures"]
+license-file = "LICENSE.md"
+repository = "https://github.com/gretchenfrage/grid_trait"
 
 [dependencies]
 mint = "^0.5"
