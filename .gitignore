@@ -1,0 +1,5 @@
+grid.txt
+target
+.DS_Store
+*.lock
+*.iml
