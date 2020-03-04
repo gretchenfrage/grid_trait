@@ -45,7 +45,7 @@ impl<T> ArrayGrid2<T> {
     }
     
     fn inner_index(&self, x: i32, y: i32) -> Option<i32> {
-        if x < 0 || x > self.x_len || y < 0 || y > self.y_len {
+        if x < 0 || x >= self.x_len || y < 0 || y >= self.y_len {
             None
         } else {
             Some(y * self.x_len + x)

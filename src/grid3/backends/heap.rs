@@ -50,7 +50,7 @@ impl<T> ArrayGrid3<T> {
     }
     
     fn inner_index(&self, x: i32, y: i32, z: i32) -> Option<i32> {
-        if x < 0 || x > self.x_len || y < 0 || y > self.y_len || z < 0 || z > self.z_len {
+        if x < 0 || x >= self.x_len || y < 0 || y >= self.y_len || z < 0 || z >= self.z_len {
             None
         } else {
             Some(z * self.x_len * self.y_len + y * self.x_len + x)
